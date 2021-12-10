@@ -1,0 +1,75 @@
+﻿@model IEnumerable<UserViewModel>
+@inject SignInManager<ApplicationUser> signInManager;
+@{
+    ViewBag.Title = "User Management";
+
+}
+<style>
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+        background-color: #f15a2b;
+    }
+
+    a:not([href]):not([tabindex]) {
+        color: #f15a2b;
+    }
+</style>
+<h3 class="text-dark" data-aos="fade-up" data-aos-duration="3000">Management &gt; User</h3>
+<a class="btn btn-primary " style="text-decoration-color: none" asp-controller="Account" asp-action="Create" data-aos="fade-up" data-aos-duration="3000">New User</a>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover mt-2 text-center  "   id="table">
+        <thead style="background-color: #282880">
+            <tr class="text-center text-light">
+                <th>ID</th>
+                <th>User</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var user in Model)
+                {
+                    if (user.User != User.Identity.Name)
+                    {
+                        <tr class="text-dark">
+                            <td>@user.Id</td>
+                            <td>@user.User</td>
+                            <td>@user.Email</td>
+                            <td>@user.PhoneNumber</td>
+                            <td>@user.Role</td>
+                            <td class="text-center">
+
+                                <a asp-controller="Account" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            }
+
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+    <script>
+        $('#table').dataTable({
+        });
+        AOS.init();
+        (function ($) {
+            "use strict";
+            var path = window.location.href;
+            $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
+                if (this.href === path) {
+                    $(this).addClass("active");
+                }
+            });
+            $("#sidebarToggle").on("click", function (e) {
+                e.preventDefault();
+                $("body").toggleClass("sb-sidenav-toggled");
+            });
+        })(jQuery);
+    </script>
+}

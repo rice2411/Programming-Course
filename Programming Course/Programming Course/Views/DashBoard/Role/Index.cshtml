@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Role>
+@{
+    ViewBag.Title = "Employee Management";
+    var emps = ViewBag.empolyees as IEnumerable<Employee>;
+}
+<style>
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+        background-color: #f15a2b;
+    }
+
+    a:not([href]):not([tabindex]) {
+        color: #f15a2b;
+    }
+</style>
+<h3 class="text-dark" data-aos="fade-up" data-aos-duration="3000">Management &gt; Role</h3>
+<a class="btn btn-primary " style="text-decoration-color: none" asp-controller="Role" asp-action="Create" data-aos="fade-up" data-aos-duration="3000">New Role</a>
+<div class=" table-responsive" data-aos="fade-up" data-aos-duration="3000">
+    <table class="table table-bordered table-striped table-hover mt-2 text-center "    id="table">
+        <thead style="background-color: #282880">
+            <tr class="text-center text-light">
+                <th>ID</th>
+                <th>Role's Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var role in Model)
+                {
+                    if (role.roleName!="System Admin")
+                    {
+                        <tr>
+                            <td>@role.id</td>
+                            <td>@role.roleName</td>
+                            <td class="text-center">
+                                <a asp-controller="Role" asp-action="Edit" asp-route-id="@role.id" class="btn btn-warning">Edit</a>
+
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+    <script>
+        $('#table').dataTable({
+        }); 
+        AOS.init();
+        (function ($) {
+            "use strict";
+            var path = window.location.href;
+            $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
+                if (this.href === path) {
+                    $(this).addClass("active");
+                }
+            });
+            $("#sidebarToggle").on("click", function (e) {
+                e.preventDefault();
+                $("body").toggleClass("sb-sidenav-toggled");
+            });
+        })(jQuery);
+    </script>
+}

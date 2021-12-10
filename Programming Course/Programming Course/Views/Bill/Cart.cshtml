@@ -1,0 +1,62 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+@{
+    ViewBag.Title = "Cart";
+    var carts = ViewBag.Carts as IEnumerable<Cart>;
+}
+<style>
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+        background-color: #f15a2b;
+    }
+
+    a:not([href]):not([tabindex]) {
+        color: #f15a2b;
+    }
+</style>
+<h3 class="text-dark" data-aos="fade-up" data-aos-duration="3000">Cart </h3>
+
+<div class="table-responsive" data-aos="fade-up" data-aos-duration="3000">
+    <table class="table table-bordered table-striped table-hover mt-2 text-center  " id="table">
+        <thead style="background-color: #282880">
+            <tr class="text-center text-light">
+                <th>Image</th>
+                <th>Course Name</th>
+                <th>Course Price</th>
+             
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cart in carts)
+            {
+                if ( cart.user == User.Identity.Name)
+                {
+                    var image = $"/images/{cart.courseImage}";
+            <tr>
+                <td><img src="@image"  style="height :50px; width:50px" /></td>
+                <td>@cart.courseName</td>
+                <td>@cart.coursePrice</td>
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+    <script>
+        $('#table').dataTable({
+        });
+        AOS.init();
+        (function ($) {
+            "use strict";
+            var path = window.location.href;
+            $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
+                if (this.href === path) {
+                    $(this).addClass("active");
+                }
+            });
+            $("#sidebarToggle").on("click", function (e) {
+                e.preventDefault();
+                $("body").toggleClass("sb-sidenav-toggled");
+            });
+        })(jQuery);
+    </script>
+}

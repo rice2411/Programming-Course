@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Not Found";
+}
+<div class="alert alert-danger my-2" data-aos="fade-up" data-aos-duration="3000">
+    <h1>ERROR 404</h1>
+    <hr />
+    <h5>Employee Not Found</h5>
+</div>
+<a asp-controller="Home" asp-action="Index" style="width: auto;" class="btn btn-warning" data-aos="fade-up" data-aos-duration="3000">Back to Home</a>
+@section Scripts{
+    <script>
+
+            AOS.init();
+    </script>
+}

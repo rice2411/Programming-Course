@@ -1,0 +1,54 @@
+﻿@model List<HomeDetailViewModel>
+@inject UserManager<ApplicationUser> userManager;
+@{
+    var image = $"/images/{(Model[0].image)}";
+}
+<div class="container" data-aos="fade-up" data-aos-duration="3000">
+    <div class="container bootstrap snippet">
+        <h1 class="text-center"><span class="glyphicon glyphicon-user"></span>DETAIL</h1>
+        <br /><br />
+        <hr>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="@image" style="width: 100%; height:100%">
+                    <br /><br />
+                    <a asp-controller="Bill" asp-action="Create" asp-route-id="@Model[0].courseId" class="btn btn-primary">BUY</a>
+                    <a class="btn btn-warning" asp-controller="Home" asp-action="Index">BACK</a>
+                </div>
+            </div>
+            <div class="col-md-9 personal-info">
+                <div class="row form-group">
+                    <div class="col-sm-3">
+                        <h5>Khóa học CGC:</h5>
+                    </div>
+                    <div class="col-sm-9">
+                        <h5> @Model[0].name</h5>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-3">
+                        <h5>Giá:</h5>
+                    </div>
+                    <div class="col-sm-9">
+                        <h5> @Model[0].price</h5>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-3">
+                        <h5>Mô tả:</h5>
+                    </div>
+                    <div class="col-sm-9">
+                        <h5> @Model[0].description </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+            AOS.init();
+    </script>
+}

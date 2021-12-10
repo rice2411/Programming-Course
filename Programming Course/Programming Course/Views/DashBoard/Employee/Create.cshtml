@@ -1,0 +1,110 @@
+﻿@model EmployeeCreateViewModel
+@{
+
+
+}
+<style>
+    * {
+        color: black;
+    }
+
+    button[type=submit].btn-primary:hover {
+        color: #FFFFFF;
+        border-color: #f15a2b;
+        background-color: #f15a2b;
+        /*#f15a2b*/
+    }
+
+    button[type=submit].btn-primary:active {
+        background-color: #f15a2b;
+    }
+</style>
+<div class="container bootstrap snippet text-light" data-aos="fade-up" data-aos-duration="3000">
+    <h1 class="text-center"><span class="glyphicon glyphicon-user"></span>NEW COURSE</h1>
+
+    <hr>
+    <!-- edit form column -->
+    <form enctype="multipart/form-data" class="form-horizontal" asp-controller="Employee" asp-action="Create" method="post">
+        <div class="row">
+
+
+            <!-- left column -->
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="avatar" style="width:100px; height:100px;" class="avatar img-circle myImage" alt="avatar" id="avatar" asp-append-version="true">
+                    <br />
+                    <label asp-for="avatar"></label>
+                    <div class="custom-file">
+
+                        <input class="custom-file-input" asp-for="avatar">
+                        <label class="custom-file-label avatarPath" for="custom-file" style=" overflow-x: hidden; width: auto;">Choose file</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 personal-info">
+
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label asp-for="name"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="name" class="form-control" />
+                        <span asp-validation-for="name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label asp-for="email"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="email" class="form-control" />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row  form-group">
+                    <div class="col-sm-2">
+                        <label asp-for="department"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <select asp-for="department" class="form-control"
+                                asp-items="@Html.GetEnumSelectList<DPM>()">
+                            <option value="">Select a department</option>
+                        </select>
+
+                        <span asp-validation-for="department" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group my-2">
+                    <div class="col-sm-12 text-right">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-warning">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        });
+       
+            AOS.init();
+
+        $(document).ready(function () {
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                $("#avatar").attr("src", window.URL.createObjectURL($(this)[0].files[0]));
+            });
+        });
+    </script>
+}
+<hr>

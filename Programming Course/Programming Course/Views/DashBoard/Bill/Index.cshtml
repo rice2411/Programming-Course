@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Employee Management";
+    var bills = ViewBag.Bills as IEnumerable<Bill>;
+}
+<style>
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+        background-color: #f15a2b;
+    }
+
+    a:not([href]):not([tabindex]) {
+        color: #f15a2b;
+    }
+</style>
+<h3 class="text-dark" data-aos="fade-up" data-aos-duration="3000">Management &gt; Bill</h3>
+
+<div class="table-responsive" data-aos="fade-up" data-aos-duration="3000">
+    <table class="table table-bordered table-striped table-hover mt-2 text-center  "  id="table">
+        <thead style="background-color: #282880">
+            <tr class="text-center text-light">
+                <th>ID</th>
+                <th>Customer Name</th>
+                <th>Customer Address</th>
+                <th>Cusomer PhoneNumber</th>
+                <th>Course </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bill in bills)
+            {
+                <tr>
+                    <td>@bill.billId</td>
+                    <td>@bill.customerName</td>
+                    <td>@bill.customerAddress</td>
+                    <td>@bill.customerPhoneNumber</td>
+                    <td>@bill.couresName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+    <script>
+        $('#table').dataTable({
+        }); 
+        AOS.init();
+        (function ($) {
+            "use strict";
+            var path = window.location.href;
+            $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
+                if (this.href === path) {
+                    $(this).addClass("active");
+                }
+            });
+            $("#sidebarToggle").on("click", function (e) {
+                e.preventDefault();
+                $("body").toggleClass("sb-sidenav-toggled");
+            });
+        })(jQuery);
+    </script>
+}

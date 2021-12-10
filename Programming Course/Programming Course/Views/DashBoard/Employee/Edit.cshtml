@@ -1,0 +1,151 @@
+﻿@model EmployeeEditViewModel
+@{
+
+    var image = $"/images/{(Model.Avatar)}";
+
+}
+<style>
+   
+
+    button[type=submit].btn-primary:hover {
+        color: #FFFFFF;
+        border-color: #f15a2b;
+        background-color: #f15a2b;
+        /*#f15a2b*/
+    }
+
+    button[type=submit].btn-primary:active {
+        background-color: #f15a2b;
+    }
+
+    a:not([href]):not([tabindex]) {
+        color: red
+    }
+
+        a:not([href]):not([tabindex]):hover {
+            color: white
+        }
+</style>
+<div class="container bootstrap snippet text-light" data-aos="fade-up" data-aos-duration="3000">
+    <h1 class="text-center text-dark"><span class="glyphicon glyphicon-user"></span>NEW EMPLOYEE</h1>
+    <hr>
+    <!-- edit form column -->
+    <form enctype="multipart/form-data" class="form-horizontal" asp-controller="Employee" asp-action="Edit" method="post">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-3">
+                <input hidden asp-for="Avatar" />
+                <div class="text-center">
+                    <img src="@image" style="width:100px; height:100px;" class="avatar img-circle myImage" alt="avatar" asp-append-version="true" id="avatar">
+                    <br />
+
+                    <div class="custom-file">
+
+                        <input class="custom-file-input" asp-for="avatar">
+                        <label class="custom-file-label avatarPath" for="custom-file" style=" overflow-x: hidden; width: auto;">Choose file</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 personal-info">
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label asp-for="employeeId" class="text-dark"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="employeeId" class="form-control" />
+                        <span asp-validation-for="employeeId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label asp-for="name"  class="text-dark"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="name" class="form-control" />
+                        <span asp-validation-for="name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label asp-for="email"  class="text-dark"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="email" class="form-control" />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row  form-group">
+                    <div class="col-sm-2">
+                        <label asp-for="department"  class="text-dark"></label>
+                    </div>
+                    <div class="col-sm-10">
+                        <select asp-for="department" class="form-control"
+                                asp-items="@Html.GetEnumSelectList<DPM>()">
+                            <option value="">Select a department</option>
+                        </select>
+
+                        <span asp-validation-for="department" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group my-2">
+                    <div class="col-sm-12 text-right">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a data-toggle="modal" data-target="#delete" class="btn btn-custom">Delete</a>
+                        <a asp-controller="Employee" asp-action="Index" class="btn btn-warning">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="modal" id="delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title text-center text-black-50">Are you sure to delete this employee</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                @*      <div class="modal-body">
+                        Modal body..
+                    </div>*@
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <form asp-controller="Employee" asp-action="Delete" method="post">
+                        <input hidden asp-for="employeeId" />
+                        <button type="submit" class="btn btn-custom">Yes</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        })
+        $(document).ready(function () {
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                $("#avatar").attr("src", window.URL.createObjectURL($(this)[0].files[0]));
+            });
+        });
+        AOS.init();
+    </script>
+
+}
+<hr>

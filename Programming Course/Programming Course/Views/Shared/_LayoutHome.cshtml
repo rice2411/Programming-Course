@@ -1,0 +1,102 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+@model List<HomeDetailViewModel>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Programming_Course</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="shortcut icon" href="//james.codegym.vn/pluginfile.php/1/theme_remui/faviconurl/1588996151/icon.png">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" />
+    <link href="~/lib/aos/aos.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #282880">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="padding: 0; margin: 0;"> <img src="~/images/codegym.jpg" alt="Logo" style=" max-width: 300px; height: 50px;"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse float-right ">
+                    <ul class="navbar-nav">
+                        <li>
+                            <form class="form-inline" asp-controller="Home" asp-action="Search">
+                                <input class="form-control mr-sm-2" asp-for="@Model[0].name">
+                                <button class="btn btn-primary" style="margin-top: 5px" type="submit">Search</button>
+                            </form>
+
+                        </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+
+                            <li>
+                                <div class="dropdown">
+                                    <a class=" nav-link text-light dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fal fa-user-cog"></i>  @User.Identity.Name
+                                    </a>
+                                    <form asp-controller="Account" asp-action="Logout" method="post">
+                                        <div class="dropdown-menu">
+                                            @if (User.IsInRole("System Admin") || User.IsInRole("Admin") || User.IsInRole("Sale"))
+                                            {
+                                                <a class="dropdown-item" asp-controller="Bill" asp-action="Index">Dashboard</a>
+                                                <div class="dropdown-divider"></div>
+                                            }
+                                            <a asp-controller="Account" asp-action="ChangePassWord" class="dropdown-item">Change Password </a>
+                                            <div class="dropdown-divider"></div>
+                                            <button type="submit" class="dropdown-item">Logout </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Bill" asp-action="Cart"><i class="fas fa-cart-plus"></i></a>
+                            </li>
+                        }
+                        else
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light " asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  text-light" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted " style="background-color: #282880">
+        <div class="container text-center text-light">
+            &copy; 2020 - ProgrammingCourse - <a asp-controller="Home" asp-action="Index">RICE</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/aos/aos.js"></script>
+    <script src="~/js/FApro.js"></script>
+    <script src="~/lib/fontawesome/js/all.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+    <script src="~/lib/aos/aos.js"></script>
+    @RenderSection("Scripts", required: false)
+
+
+</body>
+</html>

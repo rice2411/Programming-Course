@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>E:\CodeGym\Publish\RiceCodeGym</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DbConnection">
+      <Value>workstation id=RiceCodeGym.mssql.somee.com%3bpacket size=4096%3buser id=rice2411_SQLLogin_1%3bpwd=wg99j49ssx%3bdata source=RiceCodeGym.mssql.somee.com%3bpersist security info=False%3binitial catalog=RiceCodeGym</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="Programming_Course.Models.AppDbContext">
+      <Value>workstation id=RiceCodeGym.mssql.somee.com%3bpacket size=4096%3buser id=rice2411_SQLLogin_1%3bpwd=wg99j49ssx%3bdata source=RiceCodeGym.mssql.somee.com%3bpersist security info=False%3binitial catalog=RiceCodeGym</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

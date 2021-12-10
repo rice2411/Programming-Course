@@ -1,0 +1,50 @@
+﻿@*@model List<HomeDetailViewModel>
+*@
+@{
+    ViewBag.Title = "Course Seacrch";
+
+}
+<style>
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+        background-color: #f15a2b;
+    }
+
+    a:not([href]):not([tabindex]) {
+        color: #f15a2b;
+    }
+</style>
+<h3 class="text-dark" data-aos="fade-up" data-aos-duration="3000"> Result</h3>
+
+<table class="table table-bordered table-striped table-hover mt-2 text-center  " style="width: auto; " data-aos="fade-up" data-aos-duration="3000">
+    <thead style="background-color: #282880">
+        <tr class="text-center text-light">
+            <th>Name</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var image = $"/images/{(Model[i].image)}";
+            <tr class="text-dark">
+                <td>@Model[i].name</td>
+                <td><img src="@image" style="height :50px; width:50px" /></td>
+                <td>@Model[i].price</td>
+                <td style="overflow-x: hidden; ">@Model[i].description</td>
+                <td>
+                    <a asp-controller="Home" asp-action="Detail" asp-route-id="@Model[i].courseId" class="btn btn-warning">Detail</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts{
+    <script>
+
+            AOS.init();
+    </script>
+}
